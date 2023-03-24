@@ -1,4 +1,4 @@
-/home/milica/Documents/RG/CLion-2022.3.2/clion-2022.3.2/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/home/milica/Documents/RG/CLion-2022.3.2/clion-2022.3.2/bin/ninja/linux/x64/ninja -G Ninja -S /home/milica/rg-projekat -B /home/milica/rg-projekat/cmake-build-debug
+/home/milica/Documents/RG/CLion-2022.3.2/clion-2022.3.2/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/home/milica/Documents/RG/CLion-2022.3.2/clion-2022.3.2/bin/ninja/linux/x64/ninja -G Ninja -S /home/milica/Documents/RG/rg-projekat -B /home/milica/Documents/RG/rg-projekat/cmake-build-debug
 -- The C compiler identification is GNU 11.3.0
 -- The CXX compiler identification is GNU 11.3.0
 -- Detecting C compiler ABI info
@@ -16,4 +16,4 @@
 -- Found ASSIMP: /usr/lib/x86_64-linux-gnu/libassimp.so
 -- Configuring done
 -- Generating done
--- Build files have been written to: /home/milica/rg-projekat/cmake-build-debug
+-- Build files have been written to: /home/milica/Documents/RG/rg-projekat/cmake-build-debug

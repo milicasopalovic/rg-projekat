@@ -1,4 +1,4 @@
-# Install script for directory: /home/milica/rg-projekat/libs/glad
+# Install script for directory: /home/milica/Documents/RG/rg-projekat/libs/glad
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
