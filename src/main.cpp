@@ -252,6 +252,11 @@ int main() {
     Model ourModel("resources/objects/zen/scene.gltf");
     ourModel.SetShaderTextureNamePrefix("material.");
 
+    //load other zen island
+    Model zenModel("resources/objects/zen_island/scene.gltf");
+    zenModel.SetShaderTextureNamePrefix("material.");
+
+
     PointLight& pointLight = programState->pointLight;
     pointLight.position = glm::vec3(4.0f, 4.0, 0.0);
     pointLight.ambient = glm::vec3(1.0, 1.0, 1.0);
@@ -322,11 +327,22 @@ int main() {
 
         // render the loaded model
         glm::mat4 model = glm::mat4(1.0f);
-        model = glm::translate(model,
-                               programState->backpackPosition); // translate it down so it's at the center of the scene
-        model = glm::scale(model, glm::vec3(programState->backpackScale));    // it's a bit too big for our scene, so scale it down
+        model = glm::translate(model, glm::vec3(-8.00f, 1.00f, -4.00f)); // translate it down so it's at the center of the scene
+        model = glm::scale(model, glm::vec3(0.110f, 0.110f, 0.110f));// it's a bit too big for our scene, so scale it down
+        model=glm::rotate(model, glm::radians(90.0f), glm::vec3(-1.0f, 0.0f, 0.0f));
+        model=glm::rotate(model, glm::radians(10.0f), glm::vec3(0.0f, 0.0f, -1.0f));
+        model=glm::rotate(model, glm::radians(20.0f), glm::vec3(0.0f, 1.0f, 0.0f));
         ourShader.setMat4("model", model);
         ourModel.Draw(ourShader);
+
+        //render zen island2
+
+        model=glm::mat4(1.0f);
+        model=glm::translate(model, glm::vec3(0.00f, 1.00f, -10.00f));
+        model=glm::scale(model, glm::vec3(0.0110f, 0.0110f, 0.0110f));
+        model=glm::rotate(model, glm::radians(90.0f), glm::vec3(-1.0f, 0.0f, 0.0f));
+        ourShader.setMat4("model", model);
+        zenModel.Draw(ourShader);
 
         if (programState->ImGuiEnabled)
             DrawImGui(programState);
@@ -415,7 +431,7 @@ void DrawImGui(ProgramState *programState) {
         ImGui::SliderFloat("Float slider", &f, 0.0, 1.0);
         ImGui::ColorEdit3("Background color", (float *) &programState->clearColor);
         ImGui::DragFloat3("Backpack position", (float*)&programState->backpackPosition);
-        ImGui::DragFloat("Backpack scale", &programState->backpackScale, 0.05, 0.1, 4.0);
+        ImGui::DragFloat("Backpack scale", &programState->backpackScale, 0.05, 0.01, 4.0);
 
         ImGui::DragFloat("pointLight.constant", &programState->pointLight.constant, 0.05, 0.0, 1.0);
         ImGui::DragFloat("pointLight.linear", &programState->pointLight.linear, 0.05, 0.0, 1.0);
