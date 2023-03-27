@@ -249,7 +249,7 @@ int main() {
     skyboxShader.setInt("skybox", 0);
     // load models
     // -----------
-    Model ourModel("resources/objects/cat/scene.gltf");
+    Model ourModel("resources/objects/zen/scene.gltf");
     ourModel.SetShaderTextureNamePrefix("material.");
 
     PointLight& pointLight = programState->pointLight;
@@ -324,7 +324,7 @@ int main() {
         glm::mat4 model = glm::mat4(1.0f);
         model = glm::translate(model,
                                programState->backpackPosition); // translate it down so it's at the center of the scene
-        model = glm::scale(model, glm::vec3(0.1, 0.1, 0.1));    // it's a bit too big for our scene, so scale it down
+        model = glm::scale(model, glm::vec3(programState->backpackScale));    // it's a bit too big for our scene, so scale it down
         ourShader.setMat4("model", model);
         ourModel.Draw(ourShader);
 
@@ -388,6 +388,9 @@ void mouse_callback(GLFWwindow *window, double xpos, double ypos) {
 
     lastX = xpos;
     lastY = ypos;
+
+    if(programState->ImGuiEnabled == false)
+        programState->camera.ProcessMouseMovement(xoffset, yoffset);
 
     if (programState->CameraMouseMovementUpdateEnabled)
         programState->camera.ProcessMouseMovement(xoffset, yoffset);
