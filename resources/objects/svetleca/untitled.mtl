@@ -1,0 +1,120 @@
+# Blender 3.4.1 MTL File: 'None'
+# www.blender.org
+
+newmtl Material.001
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd Material.001_baseColor.png
+map_Ke Material.001_emissive.png
+map_Bump -bm 1.000000 Material.001_normal.png
+
+newmtl leaves
+Ns 1.788855
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Ke leaves_emissive.png
+
+newmtl main_crystal
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd main_crystal_baseColor.png
+map_Ke main_crystal_emissive.png
+
+newmtl main_planet
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd main_planet_baseColor.png
+map_Ke main_planet_emissive.png
+map_Bump -bm 1.000000 main_planet_normal.png
+
+newmtl ring_saturn
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd ring_saturn_baseColor.png
+map_Ke ring_saturn_emissive.png
+map_Bump -bm 1.000000 ring_saturn_normal.png
+
+newmtl saturn
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd saturn_baseColor.png
+map_Ke saturn_emissive.png
+map_Bump -bm 1.000000 saturn_normal.png
+
+newmtl small_crystal_planet
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd small_crystal_planet_baseColor.png
+map_Ke small_crystal_planet_emissive.png
+map_Bump -bm 1.000000 small_crystal_planet_normal.png
+
+newmtl small_rocks
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd small_rocks_baseColor.png
+map_Ke small_rocks_emissive.png
+map_Bump -bm 1.000000 small_rocks_normal.png
+
+newmtl tree_bark
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd tree_bark_baseColor.png
+map_Bump -bm 1.000000 tree_bark_normal.png
+
+newmtl tree_planet
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd tree_planet_baseColor.png
+map_Ke tree_planet_emissive.png
+map_Bump -bm 1.000000 tree_planet_normal.png
+
+newmtl twig
+Ns 1.788855
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2

@@ -22,17 +22,13 @@
 
 
 void framebuffer_size_callback(GLFWwindow *window, int width, int height);
-
 void mouse_callback(GLFWwindow *window, double xpos, double ypos);
-
 void scroll_callback(GLFWwindow *window, double xoffset, double yoffset);
-
 void processInput(GLFWwindow *window);
-
 void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods);
-
 unsigned int loadTexture(const char *path);
 unsigned int loadCubemap(vector<std::string> faces);
+
 
 // settings
 const unsigned int SCR_WIDTH = 800;
@@ -64,14 +60,11 @@ struct ProgramState {
     bool ImGuiEnabled = false;
     Camera camera;
     bool CameraMouseMovementUpdateEnabled = true;
-    glm::vec3 backpackPosition = glm::vec3(0.0f);
-    float backpackScale = 1.0f;
     PointLight pointLight;
     ProgramState()
             : camera(glm::vec3(0.0f, 0.0f, 3.0f)) {}
 
     void SaveToFile(std::string filename);
-
     void LoadFromFile(std::string filename);
 };
 
@@ -104,11 +97,8 @@ void ProgramState::LoadFromFile(std::string filename) {
            >> camera.Front.z;
     }
 }
-
 ProgramState *programState;
-
 void DrawImGui(ProgramState *programState);
-
 int main() {
     // glfw: initialize and configure
     // ------------------------------
@@ -118,7 +108,7 @@ int main() {
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 #ifdef __APPLE__
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE)
 #endif
 
     // glfw window creation
@@ -135,22 +125,18 @@ int main() {
     glfwSetScrollCallback(window, scroll_callback);
     glfwSetKeyCallback(window, key_callback);
     // tell GLFW to capture our mouse
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
     // glad: load all OpenGL function pointers
-    // ---------------------------------------
     if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)) {
         std::cout << "Failed to initialize GLAD" << std::endl;
         return -1;
     }
 
-    // tell stb_image.h to flip loaded texture's on the y-axis (before loading model).
-    stbi_set_flip_vertically_on_load(false);
-
     programState = new ProgramState;
     programState->LoadFromFile("resources/program_state.txt");
     if (programState->ImGuiEnabled) {
-        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
     }
     // Init Imgui
     IMGUI_CHECKVERSION();
@@ -164,11 +150,8 @@ int main() {
     ImGui_ImplOpenGL3_Init("#version 330 core");
 
     // configure global opengl state
-    // -----------------------------
     glEnable(GL_DEPTH_TEST);
-
     // build and compile shaders
-    // -------------------------
     Shader ourShader("resources/shaders/2.model_lighting.vs", "resources/shaders/2.model_lighting.fs");
     Shader skyboxShader("resources/shaders/skybox.vs", "resources/shaders/skybox.fs");
     //skybox vertices
@@ -249,12 +232,17 @@ int main() {
     skyboxShader.setInt("skybox", 0);
     // load models
     // -----------
-    Model ourModel("resources/objects/zen/scene.gltf");
+    Model ourModel("resources/objects/zen1/untitled.obj");
     ourModel.SetShaderTextureNamePrefix("material.");
 
     //load other zen island
-    Model zenModel("resources/objects/zen_island/scene.gltf");
+    Model zenModel("resources/objects/drvoo/untitled.obj");
     zenModel.SetShaderTextureNamePrefix("material.");
+
+    //load glowing planet
+    Model glowModel("resources/objects/kristali/untitled.obj");
+    glowModel.SetShaderTextureNamePrefix(".material");
+
 
 
     PointLight& pointLight = programState->pointLight;
@@ -290,7 +278,9 @@ int main() {
         // ------
         glClearColor(programState->clearColor.r, programState->clearColor.g, programState->clearColor.b, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+        ourShader.use();
+        ourShader.setVec3("viewPosition", programState->camera.Position);
+        ourShader.setFloat("material.shininess", 32.0f);
         glm::mat4 projection = glm::perspective(glm::radians(programState->camera.Zoom),
                                                 (float) SCR_WIDTH / (float) SCR_HEIGHT, 0.1f, 100.0f);
         glm::mat4 view = programState->camera.GetViewMatrix();
@@ -327,22 +317,35 @@ int main() {
 
         // render the loaded model
         glm::mat4 model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(-8.00f, 1.00f, -4.00f)); // translate it down so it's at the center of the scene
-        model = glm::scale(model, glm::vec3(0.110f, 0.110f, 0.110f));// it's a bit too big for our scene, so scale it down
-        model=glm::rotate(model, glm::radians(90.0f), glm::vec3(-1.0f, 0.0f, 0.0f));
-        model=glm::rotate(model, glm::radians(10.0f), glm::vec3(0.0f, 0.0f, -1.0f));
-        model=glm::rotate(model, glm::radians(20.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::translate(model, glm::vec3(-5.00f, -2.00f, -4.00f)); // translate it down so it's at the center of the scene
+        model = glm::scale(model, glm::vec3(0.210f, 0.210f, 0.210f));// it's a bit too big for our scene, so scale it down
+        //model=glm::rotate(model, glm::radians(90.0f), glm::vec3(-1.0f, 0.0f, 0.0f));
+        //model=glm::rotate(model, glm::radians(0.0f), glm::vec3(0.0f, 0.0f, -1.0f));
+        //model=glm::rotate(model, glm::radians(20.0f), glm::vec3(0.0f, 1.0f, 0.0f));
         ourShader.setMat4("model", model);
         ourModel.Draw(ourShader);
 
         //render zen island2
 
         model=glm::mat4(1.0f);
-        model=glm::translate(model, glm::vec3(0.00f, 1.00f, -10.00f));
+        model=glm::translate(model, glm::vec3(5.00f, -5.00f, -10.00f));
         model=glm::scale(model, glm::vec3(0.0110f, 0.0110f, 0.0110f));
-        model=glm::rotate(model, glm::radians(90.0f), glm::vec3(-1.0f, 0.0f, 0.0f));
+        model=glm::rotate(model, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+        //model = glm::rotate(model, glm::radians(50.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+        //model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
         ourShader.setMat4("model", model);
         zenModel.Draw(ourShader);
+
+        //render glow model
+        model=glm::mat4(1.0f);
+        model=glm::translate(model, glm::vec3(0.00f, 1.00f, -5.00f));
+        model=glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+        model=glm::rotate(model, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+        //model = glm::rotate(model, glm::radians(50.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+        //model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        ourShader.setMat4("model", model);
+        glowModel.Draw(ourShader);
+
 
         if (programState->ImGuiEnabled)
             DrawImGui(programState);
@@ -405,9 +408,6 @@ void mouse_callback(GLFWwindow *window, double xpos, double ypos) {
     lastX = xpos;
     lastY = ypos;
 
-    if(programState->ImGuiEnabled == false)
-        programState->camera.ProcessMouseMovement(xoffset, yoffset);
-
     if (programState->CameraMouseMovementUpdateEnabled)
         programState->camera.ProcessMouseMovement(xoffset, yoffset);
 }
@@ -426,16 +426,11 @@ void DrawImGui(ProgramState *programState) {
 
     {
         static float f = 0.0f;
-        ImGui::Begin("Hello window");
-        ImGui::Text("Hello text");
-        ImGui::SliderFloat("Float slider", &f, 0.0, 1.0);
-        ImGui::ColorEdit3("Background color", (float *) &programState->clearColor);
-        ImGui::DragFloat3("Backpack position", (float*)&programState->backpackPosition);
-        ImGui::DragFloat("Backpack scale", &programState->backpackScale, 0.05, 0.01, 4.0);
-
-        ImGui::DragFloat("pointLight.constant", &programState->pointLight.constant, 0.05, 0.0, 1.0);
-        ImGui::DragFloat("pointLight.linear", &programState->pointLight.linear, 0.05, 0.0, 1.0);
-        ImGui::DragFloat("pointLight.quadratic", &programState->pointLight.quadratic, 0.05, 0.0, 1.0);
+        ImGui::Begin("Settings");
+        ImGui::Text("Point light settings:");
+        ImGui::DragFloat("pointLight.constant", &programState->pointLight.constant, 0.005, 0.0001, 1.0);
+        ImGui::DragFloat("pointLight.linear", &programState->pointLight.linear, 0.005, 0.0001, 1.0);
+        ImGui::DragFloat("pointLight.quadratic", &programState->pointLight.quadratic, 0.005, 0.0001, 1.0);
         ImGui::End();
     }
 
@@ -454,11 +449,11 @@ void DrawImGui(ProgramState *programState) {
 }
 
 void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods) {
-    if (key == GLFW_KEY_F1 && action == GLFW_PRESS) {
+    if (key == GLFW_KEY_F8 && action == GLFW_PRESS) {
         programState->ImGuiEnabled = !programState->ImGuiEnabled;
         if (programState->ImGuiEnabled) {
             programState->CameraMouseMovementUpdateEnabled = false;
-            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
         } else {
             glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
         }
@@ -531,3 +526,4 @@ unsigned int loadCubemap(vector<std::string> faces)
 
     return textureID;
 }
+

@@ -16,14 +16,6 @@ struct PointLight {
 struct Material {
     sampler2D texture_diffuse1;
     sampler2D texture_specular1;
-    sampler2D texture_diffuse2;
-    sampler2D texture_diffuse3;
-    sampler2D texture_diffuse4;
-    sampler2D texture_diffuse5;
-    sampler2D texture_diffuse6;
-    sampler2D texture_diffuse7;
-    sampler2D texture_diffuse8;
-
     float shininess;
 };
 in vec2 TexCoords;
@@ -50,13 +42,6 @@ vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
     vec3 ambient = light.ambient * vec3(texture(material.texture_diffuse1, TexCoords));
     vec3 diffuse = light.diffuse * diff * vec3(texture(material.texture_diffuse1, TexCoords));
     vec3 specular = light.specular * spec * vec3(texture(material.texture_specular1, TexCoords).xxx);
-    diffuse = light.diffuse * diff * vec3(texture(material.texture_diffuse2, TexCoords));
-    diffuse = light.diffuse * diff * vec3(texture(material.texture_diffuse3, TexCoords));
-    diffuse = light.diffuse * diff * vec3(texture(material.texture_diffuse4, TexCoords));
-    diffuse = light.diffuse * diff * vec3(texture(material.texture_diffuse5, TexCoords));
-    diffuse = light.diffuse * diff * vec3(texture(material.texture_diffuse6, TexCoords));
-    diffuse = light.diffuse * diff * vec3(texture(material.texture_diffuse7, TexCoords));
-    diffuse = light.diffuse * diff * vec3(texture(material.texture_diffuse8, TexCoords));
     ambient *= attenuation;
     diffuse *= attenuation;
     specular *= attenuation;
