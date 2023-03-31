@@ -31,8 +31,8 @@ unsigned int loadCubemap(vector<std::string> faces);
 
 
 // settings
-const unsigned int SCR_WIDTH = 800;
-const unsigned int SCR_HEIGHT = 600;
+const unsigned int SCR_WIDTH = 1200;
+const unsigned int SCR_HEIGHT = 900;
 
 // camera
 
@@ -125,7 +125,7 @@ int main() {
     glfwSetScrollCallback(window, scroll_callback);
     glfwSetKeyCallback(window, key_callback);
     // tell GLFW to capture our mouse
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
     // glad: load all OpenGL function pointers
     if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)) {
@@ -136,7 +136,7 @@ int main() {
     programState = new ProgramState;
     programState->LoadFromFile("resources/program_state.txt");
     if (programState->ImGuiEnabled) {
-        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
     }
     // Init Imgui
     IMGUI_CHECKVERSION();
@@ -239,9 +239,9 @@ int main() {
     Model zenModel("resources/objects/drvoo/untitled.obj");
     zenModel.SetShaderTextureNamePrefix("material.");
 
-    //load glowing planet
-    Model glowModel("resources/objects/kristali/untitled.obj");
-    glowModel.SetShaderTextureNamePrefix(".material");
+    //load ostrvo model
+    Model ostrvoModel("resources/objects/ostrvo/untitled.obj");
+    ostrvoModel.SetShaderTextureNamePrefix(".material");
 
 
 
@@ -336,15 +336,15 @@ int main() {
         ourShader.setMat4("model", model);
         zenModel.Draw(ourShader);
 
-        //render glow model
+        //render ostrvo model
         model=glm::mat4(1.0f);
-        model=glm::translate(model, glm::vec3(0.00f, 1.00f, -5.00f));
-        model=glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+        model=glm::translate(model, glm::vec3(-1.00f, -1.00f, -4.00f));
+        model=glm::scale(model, glm::vec3(0.002f, 0.002f, 0.002f));
         model=glm::rotate(model, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
         //model = glm::rotate(model, glm::radians(50.0f), glm::vec3(0.0f, 0.0f, 1.0f));
         //model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
         ourShader.setMat4("model", model);
-        glowModel.Draw(ourShader);
+        ostrvoModel.Draw(ourShader);
 
 
         if (programState->ImGuiEnabled)
