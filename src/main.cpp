@@ -154,6 +154,7 @@ int main() {
     // build and compile shaders
     Shader ourShader("resources/shaders/2.model_lighting.vs", "resources/shaders/2.model_lighting.fs");
     Shader skyboxShader("resources/shaders/skybox.vs", "resources/shaders/skybox.fs");
+
     //skybox vertices
     float skyboxVertices[] = {
             //postitions
@@ -230,6 +231,7 @@ int main() {
     ourShader.setInt("ourShader", 1);
     skyboxShader.use();
     skyboxShader.setInt("skybox", 0);
+
     // load models
     // -----------
     Model ourModel("resources/objects/zen1/untitled.obj");
@@ -253,7 +255,7 @@ int main() {
 
     pointLight.constant = 1.0f;
     pointLight.linear = 0.09f;
-    pointLight.quadratic = 0.032f;
+    pointLight.quadratic = 0.020f;
 
 
 
@@ -298,6 +300,7 @@ int main() {
         glBindVertexArray(0);
         glDepthFunc(GL_LESS); // set depth function back to default
 
+        view = programState->camera.GetViewMatrix();
         // don't forget to enable shader before setting uniforms
         ourShader.use();
         pointLight.position = glm::vec3(4.0 * cos(currentFrame), 4.0f, 4.0 * sin(currentFrame));
@@ -314,7 +317,8 @@ int main() {
 
         ourShader.setMat4("projection", projection);
         ourShader.setMat4("view", view);
-
+        glEnable(GL_CULL_FACE);
+        glCullFace(GL_BACK);
         // render the loaded model
         glm::mat4 model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(-5.00f, -2.00f, -4.00f)); // translate it down so it's at the center of the scene
@@ -338,13 +342,14 @@ int main() {
 
         //render ostrvo model
         model=glm::mat4(1.0f);
-        model=glm::translate(model, glm::vec3(-1.00f, -1.00f, -4.00f));
-        model=glm::scale(model, glm::vec3(0.002f, 0.002f, 0.002f));
+        model=glm::translate(model, glm::vec3(-2.00f, -1.00f, -8.00f));
+        model=glm::scale(model, glm::vec3(0.0025f, 0.0025f, 0.0025f));
         model=glm::rotate(model, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
         //model = glm::rotate(model, glm::radians(50.0f), glm::vec3(0.0f, 0.0f, 1.0f));
         //model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
         ourShader.setMat4("model", model);
         ostrvoModel.Draw(ourShader);
+        glDisable(GL_CULL_FACE);
 
 
         if (programState->ImGuiEnabled)
@@ -449,7 +454,7 @@ void DrawImGui(ProgramState *programState) {
 }
 
 void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods) {
-    if (key == GLFW_KEY_F8 && action == GLFW_PRESS) {
+    if (key == GLFW_KEY_U && action == GLFW_PRESS) {
         programState->ImGuiEnabled = !programState->ImGuiEnabled;
         if (programState->ImGuiEnabled) {
             programState->CameraMouseMovementUpdateEnabled = false;
