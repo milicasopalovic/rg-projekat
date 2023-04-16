@@ -22,14 +22,11 @@ Moving:<br>
 `A` - left
 
 `D` - right
-   
-<br>
-Ambient manipulation:
 
-`Space` - turn on/off HDR
+`H` - ukljuci/iskljuci HDR
 
-`B` - turn on/off bloom
+`B` - ukljuci/iskljuci bloom
 
-`Q` - lower the exposure
+`Q` - smanji exposure
 
-`E` - raise the exposure
+`E` - povecaj exposure
