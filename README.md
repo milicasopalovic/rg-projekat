@@ -1,6 +1,9 @@
 <b>RG projekat<b>
 
 Svi modeli korisceni u ovom projektu su preuzeti sa [sketchfab.com](https://sketchfab.com/feed). Skybox je preuzet sa [gamebanana.com](https://gamebanana.com/).
+
+[Demo snimak](https://www.youtube.com/watch?v=ZfvH-ZO3L-A)
+
 Vecina koda je direktno kopirana iz repozitorujuma. Sto se tice implementiranih lekcija projekat sadrzi:
 
 - [x] Sve lekcije 1-8 nedelje
@@ -30,3 +33,4 @@ Moving:<br>
 `Q` - smanji exposure
 
 `E` - povecaj exposure
+
