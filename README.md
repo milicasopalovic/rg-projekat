@@ -4,7 +4,7 @@ Svi modeli korisceni u ovom projektu su preuzeti sa [sketchfab.com](https://sket
 
 [Demo snimak](https://www.youtube.com/watch?v=ZfvH-ZO3L-A)
 
-Vecina koda je direktno kopirana iz repozitorujuma. Sto se tice implementiranih lekcija projekat sadrzi:
+Sto se tice implementiranih lekcija projekat sadrzi:
 
 - [x] Sve lekcije 1-8 nedelje
    - [x] [Blending, discard](https://learnopengl.com/Advanced-OpenGL/Blending)
